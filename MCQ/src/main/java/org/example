@@ -1,0 +1,136 @@
+package org;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+// run = mvn javafx:run
+public class Main extends Application {
+
+    @Override
+    public void start(Stage stage) {
+
+        // ===== Label =====
+        Label title = new Label("JavaFX Components Demo");
+
+        // ===== TextField =====
+        TextField txtName = new TextField();
+        txtName.setPromptText("Enter your name");
+
+        // ===== Password =====
+        PasswordField txtPass = new PasswordField();
+        txtPass.setPromptText("Password");
+
+        // ===== TextArea =====
+        TextArea txtArea = new TextArea();
+        txtArea.setPromptText("Description...");
+        txtArea.setPrefRowCount(4);
+
+        // ===== CheckBox =====
+        CheckBox cbJava = new CheckBox("Java");
+        CheckBox cbHibernate = new CheckBox("Hibernate");
+        CheckBox cbFx = new CheckBox("JavaFX");
+
+        // ===== RadioButton =====
+        ToggleGroup genderGroup = new ToggleGroup();
+
+        RadioButton male = new RadioButton("Male");
+        male.setToggleGroup(genderGroup);
+
+        RadioButton female = new RadioButton("Female");
+        female.setToggleGroup(genderGroup);
+
+        HBox genderBox = new HBox(10, male, female);
+
+        // ===== ComboBox =====
+        ComboBox<String> comboCity = new ComboBox<>();
+        comboCity.getItems().addAll(
+                "HCM",
+                "Ha Noi",
+                "Da Nang"
+        );
+        comboCity.setPromptText("Choose city");
+
+        // ===== ListView =====
+        ListView<String> listView = new ListView<>();
+        listView.getItems().addAll(
+                "Apple",
+                "Banana",
+                "Orange",
+                "Mango"
+        );
+        listView.setPrefHeight(100);
+
+        // ===== Slider =====
+        Slider slider = new Slider(0, 100, 50);
+
+        // ===== ProgressBar =====
+        ProgressBar progressBar = new ProgressBar(0.6);
+
+        // ===== DatePicker =====
+        DatePicker datePicker = new DatePicker();
+
+        // ===== Buttons =====
+        Button btnSave = new Button("Save");
+        Button btnCancel = new Button("Cancel");
+
+        HBox buttonBox = new HBox(10, btnSave, btnCancel);
+        buttonBox.setAlignment(Pos.CENTER_RIGHT);
+
+        // ===== Main Layout =====
+        VBox root = new VBox(12);
+
+        root.setPadding(new Insets(20));
+
+        root.getChildren().addAll(
+                title,
+
+                new Label("Name"),
+                txtName,
+
+                new Label("Password"),
+                txtPass,
+
+                new Label("Description"),
+                txtArea,
+
+                new Label("Skills"),
+                cbJava,
+                cbHibernate,
+                cbFx,
+
+                new Label("Gender"),
+                genderBox,
+
+                new Label("City"),
+                comboCity,
+
+                new Label("Fruits"),
+                listView,
+
+                new Label("Volume"),
+                slider,
+
+                new Label("Progress"),
+                progressBar,
+
+                new Label("Birthday"),
+                datePicker,
+
+                buttonBox
+        );
+
+        Scene scene = new Scene(root, 500, 750);
+
+        stage.setTitle("JavaFX Layout Preview");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
