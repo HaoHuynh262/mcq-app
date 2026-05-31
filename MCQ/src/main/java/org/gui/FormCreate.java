@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 public class FormCreate extends VBox {
-
     private TextArea txtContent;
     private TextField txtPicture;
 
@@ -21,7 +20,6 @@ public class FormCreate extends VBox {
     private Button btnSave;
 
     public FormCreate() {
-
         setSpacing(12);
         setPadding(new Insets(15));
 
@@ -30,15 +28,9 @@ public class FormCreate extends VBox {
                     -fx-border-width: 1;
                 """);
 
-        // =========================
-        // CONTENT
-        // =========================
         txtContent = new TextArea();
         txtContent.setPromptText("Question content...");
 
-        // =========================
-        // PICTURE
-        // =========================
         HBox pictureBox = new HBox(10);
         pictureBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -49,24 +41,15 @@ public class FormCreate extends VBox {
 
         pictureBox.getChildren().addAll(txtPicture, btnBrowse);
 
-        // =========================
-        // OPTIONS
-        // =========================
         txtA = new TextField();
         txtA.setPromptText("Option A");
-
         txtB = new TextField();
         txtB.setPromptText("Option B");
-
         txtC = new TextField();
         txtC.setPromptText("Option C");
-
         txtD = new TextField();
         txtD.setPromptText("Option D");
 
-        // =========================
-        // COMBOBOX
-        // =========================
         cbAnswer = new ComboBox<>();
         cbAnswer.getItems().addAll("A", "B", "C", "D");
         cbAnswer.setPromptText("Correct Answer");
@@ -82,17 +65,11 @@ public class FormCreate extends VBox {
         cbLevel.getItems().addAll("EASY", "MEDIUM", "HARD");
         cbLevel.setValue("EASY");
 
-        // =========================
-        // BUTTON
-        // =========================
         btnSave = new Button("Save Question");
 
         HBox btnBox = new HBox(btnSave);
         btnBox.setAlignment(Pos.CENTER_RIGHT);
 
-        // =========================
-        // ADD TO VIEW
-        // =========================
         getChildren().addAll(
                 new Label("Content"),
                 txtContent,
@@ -115,6 +92,7 @@ public class FormCreate extends VBox {
                 new Label("Level"),
                 cbLevel,
 
-                btnBox);
+                btnBox
+        );
     }
 }
