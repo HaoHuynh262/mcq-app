@@ -18,4 +18,9 @@ public class Topic {
     private String tpTitle;
     private int tpParent;
     private int tpStatus;
+
+    @Override
+    public String toString() {
+        return tpTitle;
+    }
 }

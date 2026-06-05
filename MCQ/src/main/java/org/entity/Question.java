@@ -25,8 +25,8 @@ public class Question {
     private String qC;
     private String qD;
 
-    private String qRight;
-    private String qLeft;
+    private String qRight;  // answer
+    private String qLevel;  // easy, medium, hard
 
-    private int qStatus;
+    private int qStatus;   // đang dùng(1) hoặc không dùng(0)
 }

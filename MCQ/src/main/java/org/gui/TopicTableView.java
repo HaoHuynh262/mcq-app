@@ -1,8 +1,11 @@
 package org.gui;
 
+import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import org.bll.TopicBLL;
 import org.entity.Topic;
 
 public class TopicTableView extends TableView<Topic> {
@@ -20,6 +23,11 @@ public class TopicTableView extends TableView<Topic> {
                 cotStatus.setCellValueFactory(new PropertyValueFactory<>("tpStatus"));
 
                 getColumns().addAll(cotId, cotTitle, cotParent, cotStatus);
-                setPrefWidth(300);
+                setPrefWidth(310);
+        }
+
+        public void loadData() {
+                TopicBLL bll = new TopicBLL();
+                setItems(FXCollections.observableArrayList(bll.getAllTopics()));
         }
 }

@@ -1,18 +1,27 @@
-package org.gui; 
+package org.gui;
+
+import org.entity.*;
+import org.bll.*;
+import org.dao.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class FormCreate extends VBox {
     private TextArea txtContent;
     private TextField txtPicture;
+    private TextField topicTitle;
 
-    private TextField txtA, txtB, txtC, txtD;
+    private TextField txtA;
+    private TextField txtB;
+    private TextField txtC;
+    private TextField txtD;
 
     private ComboBox<String> cbAnswer;
-    private ComboBox<String> cbTopic;
     private ComboBox<String> cbStatus;
     private ComboBox<String> cbLevel;
 
@@ -24,8 +33,8 @@ public class FormCreate extends VBox {
         setPadding(new Insets(15));
 
         setStyle("""
-                    -fx-border-color: #333;
-                    -fx-border-width: 1;
+                -fx-border-color: #333;
+                -fx-border-width: 1;
                 """);
 
         txtContent = new TextArea();
@@ -43,10 +52,13 @@ public class FormCreate extends VBox {
 
         txtA = new TextField();
         txtA.setPromptText("Option A");
+
         txtB = new TextField();
         txtB.setPromptText("Option B");
+
         txtC = new TextField();
         txtC.setPromptText("Option C");
+
         txtD = new TextField();
         txtD.setPromptText("Option D");
 
@@ -54,8 +66,8 @@ public class FormCreate extends VBox {
         cbAnswer.getItems().addAll("A", "B", "C", "D");
         cbAnswer.setPromptText("Correct Answer");
 
-        cbTopic = new ComboBox<>();
-        cbTopic.setPromptText("Topic");
+        topicTitle = new TextField();
+        topicTitle.setPromptText("Topic Title");
 
         cbStatus = new ComboBox<>();
         cbStatus.getItems().addAll("ACTIVE", "INACTIVE");
@@ -78,13 +90,16 @@ public class FormCreate extends VBox {
                 pictureBox,
 
                 new Label("Options"),
-                txtA, txtB, txtC, txtD,
+                txtA,
+                txtB,
+                txtC,
+                txtD,
 
                 new Label("Correct Answer"),
                 cbAnswer,
 
                 new Label("Topic"),
-                cbTopic,
+                topicTitle,
 
                 new Label("Status"),
                 cbStatus,
@@ -92,7 +107,31 @@ public class FormCreate extends VBox {
                 new Label("Level"),
                 cbLevel,
 
-                btnBox
-        );
+                btnBox);
+
+        btnSave.setOnAction(e -> {
+            try {
+                Question q = new Question();
+                q.setQContent(txtContent.getText());
+                q.setQPicture(txtPicture.getText());
+                q.setQA(txtA.getText());
+                q.setQB(txtB.getText());
+                q.setQC(txtC.getText());
+                q.setQD(txtD.getText());
+                q.setQRight(cbAnswer.getValue());
+                q.setQLevel(cbLevel.getValue());
+                q.setQStatus("ACTIVE".equals(cbStatus.getValue()) ? 1 : 0);
+                QuestionBLL bll = new QuestionBLL();
+                bll.createQuestion(q, topicTitle.getText().trim());
+
+                TopicTableView table = new TopicTableView();
+                table.loadData();
+
+                new Alert(Alert.AlertType.INFORMATION, "Question created successfully").showAndWait();
+                ((Stage) btnSave.getScene().getWindow()).close();
+            } catch (Exception ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+            }
+        });
     }
 }

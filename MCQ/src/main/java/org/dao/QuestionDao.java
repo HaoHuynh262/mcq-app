@@ -16,6 +16,7 @@ public class QuestionDao {
             trans.commit();                // Thực hiện
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             if (trans != null) {
                 trans.rollback();
             }

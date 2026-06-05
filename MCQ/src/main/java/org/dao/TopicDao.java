@@ -1,10 +1,10 @@
 package org.dao;
 
-import org.entity.Question;
 import org.entity.Topic;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.util.HibernateUtil;
+
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ public class TopicDao {
             trans.commit();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             if (trans != null) {
                 trans.rollback();
             }
@@ -25,17 +26,27 @@ public class TopicDao {
         }
     }
 
-    public List<Question> getAll() {
+    public List<Topic> getAll() {
         try (Session s = HibernateUtil.getFactory().openSession()) {
-            return s.createQuery("from question", Question.class).list();
+            return s.createQuery("from Topic", Topic.class).list();
         }
     }
 
-    public Question getById(int id) {
+    public Topic getById(int id) {
         try (Session s = HibernateUtil.getFactory().openSession()) {
-            return s.find(Question.class, id);
+            return s.find(Topic.class, id);
         }
     }
 
+    public Topic findByTitle(String title) {
+        try (Session s = HibernateUtil.getFactory().openSession()) {
+            List<Topic> list = s.createQuery(
+                    "from Topic t where t.tpTitle = :title",
+                    Topic.class)
+                    .setParameter("title", title)
+                    .list();
 
+            return list.isEmpty() ? null : list.get(0);
+        }
+    }
 }

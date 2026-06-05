@@ -1,10 +1,13 @@
 package org.gui;
 
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import org.entity.Question;
 
 public class QuestionView extends VBox {
@@ -16,8 +19,9 @@ public class QuestionView extends VBox {
         private final Button qd;
         private final Button prev;
         private final Button next;
-        private final Button create;
-        
+        private final Button createQ;
+        private final Button createT;
+
         public QuestionView(Question q) {
                 setSpacing(20);
                 setAlignment(Pos.CENTER);
@@ -39,11 +43,27 @@ public class QuestionView extends VBox {
                 HBox nav = new HBox(10, prev, next);
                 nav.setAlignment(Pos.CENTER);
 
-                create = new Button("Create");
-                getChildren().addAll(question, picture, answers, nav,  create);
+                createQ = new Button("Create Question");
+                createT = new Button("Create Topic");
+
+                HBox Createnav = new HBox(10, createQ, createT);
+                Createnav.setAlignment(Pos.CENTER);
+
+                getChildren().addAll(question, picture, answers, nav, Createnav);
+
+                createQ.setOnAction(e -> openCreateQuestionWindow());
         }
 
-        public Button getCreateButton() {return create;}
+        private void openCreateQuestionWindow() {
+                Stage stage = new Stage();
+                FormCreate form = new FormCreate();
+                Scene scene = new Scene(form, 600, 700);
+                stage.setTitle("Create Question");
+                stage.setScene(scene);
+                stage.show();
+        }
+
+        public Button getCreateButton() {return createQ;}
         public Button getPrevButton() {return prev;}
         public Button getNextButton() {return next;}
 }
