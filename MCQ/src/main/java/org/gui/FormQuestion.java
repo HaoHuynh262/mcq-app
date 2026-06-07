@@ -2,7 +2,6 @@ package org.gui;
 
 import org.entity.*;
 import org.bll.*;
-import org.dao.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FormCreate extends VBox {
+public class FormQuestion extends VBox {
     private TextArea txtContent;
     private TextField txtPicture;
     private TextField topicTitle;
@@ -28,7 +27,11 @@ public class FormCreate extends VBox {
     private Button btnBrowse;
     private Button btnSave;
 
-    public FormCreate() {
+    private final TopicTableView topicTable;
+
+    public FormQuestion(TopicTableView topicTable) {
+        this.topicTable = topicTable;
+
         setSpacing(12);
         setPadding(new Insets(15));
 
@@ -124,10 +127,9 @@ public class FormCreate extends VBox {
                 QuestionBLL bll = new QuestionBLL();
                 bll.createQuestion(q, topicTitle.getText().trim());
 
-                TopicTableView table = new TopicTableView();
-                table.loadData();
+                topicTable.loadData();
 
-                new Alert(Alert.AlertType.INFORMATION, "Question created successfully").showAndWait();
+                new Alert(Alert.AlertType.INFORMATION, "Question created successfully");
                 ((Stage) btnSave.getScene().getWindow()).close();
             } catch (Exception ex) {
                 new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();

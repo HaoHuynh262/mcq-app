@@ -7,6 +7,13 @@ import org.entity.Topic;
 public class TopicBLL {
     private final TopicDao topicDAO = new TopicDao();
 
+    public void createTopic(Topic topic) {
+        boolean ok = topicDAO.insert(topic);
+        if (!ok) {
+            throw new RuntimeException("Cannot create topic");
+        }
+    }
+
     public Topic getOrCreateTopic(String title) {
         if (title == null || title.trim().isEmpty()) {
             throw new RuntimeException("Topic title cannot be empty");
