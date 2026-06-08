@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.entity.Question;
+import javafx.scene.layout.Region;
 
 public class QuestionView extends VBox {
         private final Label question;
@@ -37,6 +38,18 @@ public class QuestionView extends VBox {
                 HBox answers = new HBox(10, qa, qb, qc, qd);
                 answers.setAlignment(Pos.CENTER);
 
+                VBox questionBox = new VBox(20, question, picture, answers);
+
+                questionBox.setAlignment(Pos.CENTER);
+                questionBox.setStyle("""
+                                -fx-border-color: #333;
+                                -fx-border-width: 2;
+                                -fx-padding: 30;
+                                -fx-background-color: white;
+                                -fx-border-radius: 10;
+                                """);
+                questionBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+
                 prev = new Button("Previous");
                 next = new Button("Next");
 
@@ -49,11 +62,38 @@ public class QuestionView extends VBox {
                 HBox createBox = new HBox(10, btnCreateQ, btnCreateT);
                 createBox.setAlignment(Pos.CENTER);
 
-                getChildren().addAll(question, picture, answers, nav, createBox);
+                getChildren().addAll(questionBox, nav, createBox);
         }
 
-        public Button getCreateQButton() {return btnCreateQ; }
-        public Button getCreateTButton() {return btnCreateT; }
-        public Button getPrevButton() {return prev; }
-        public Button getNextButton() {return next; }
+        public void setQuestion(Question q) {
+                if (q == null) {
+                        question.setText("No question");
+                        picture.setText("");
+
+                        qa.setText("");
+                        qb.setText("");
+                        qc.setText("");
+                        qd.setText("");
+                        return;
+                }
+
+                question.setText(q.getQContent());
+                picture.setText(q.getQPicture());
+                qa.setText(q.getQA());
+                qb.setText(q.getQB());
+                qc.setText(q.getQC());
+                qd.setText(q.getQD());
+        }
+        public Button getCreateQButton() {
+                return btnCreateQ;
+        }
+        public Button getCreateTButton() {
+                return btnCreateT;
+        }
+        public Button getPrevButton() {
+                return prev;
+        }
+        public Button getNextButton() {
+                return next;
+        }
 }

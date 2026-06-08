@@ -93,10 +93,7 @@ public class FormQuestion extends VBox {
                 pictureBox,
 
                 new Label("Options"),
-                txtA,
-                txtB,
-                txtC,
-                txtD,
+                txtA, txtB, txtC, txtD,
 
                 new Label("Correct Answer"),
                 cbAnswer,

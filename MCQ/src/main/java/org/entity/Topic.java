@@ -3,6 +3,8 @@ package org.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "topics")
@@ -23,4 +25,7 @@ public class Topic {
     public String toString() {
         return tpTitle;
     }
+
+    @OneToMany(mappedBy = "topic")
+    private List<Question> questions = new ArrayList<>();
 }

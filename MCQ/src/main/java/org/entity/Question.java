@@ -18,7 +18,7 @@ public class Question {
 
     private String qContent;
     private String qPicture;
-    private int qTopicId;
+    // private int qTopicId;
 
     private String qA;
     private String qB;
@@ -29,4 +29,8 @@ public class Question {
     private String qLevel;  // easy, medium, hard
 
     private int qStatus;   // đang dùng(1) hoặc không dùng(0)
+
+    @ManyToOne
+    @JoinColumn(name = "qTopicId")
+    private Topic topic;
 }

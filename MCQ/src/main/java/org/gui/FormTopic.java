@@ -44,11 +44,11 @@ public class FormTopic extends VBox {
         btnSave.setOnAction(e -> {
             try {
                 if (txtTitle.getText().isBlank()) {
-                    new Alert(Alert.AlertType.ERROR, "Title cannot be empty!").showAndWait();
+                    new Alert(Alert.AlertType.ERROR, "Không được để trống tiêu đề!").showAndWait();
                     return;
                 }
                 if (txtParent.getText().isBlank() || txtStatus.getText().isBlank()) {
-                    new Alert(Alert.AlertType.ERROR, "Không được để trống!").showAndWait();
+                    new Alert(Alert.AlertType.ERROR, "Không được để trống Parent & Status!").showAndWait();
                     return;
                 }
                 Topic t = new Topic();
@@ -67,7 +67,7 @@ public class FormTopic extends VBox {
         });
 
         getChildren().addAll(
-                new Label("Label: "), txtTitle,
+                new Label("Title: "), txtTitle,
                 new Label("Parent ID: "), txtParent,
                 new Label("Status: "), txtStatus,
                 btnSave);
