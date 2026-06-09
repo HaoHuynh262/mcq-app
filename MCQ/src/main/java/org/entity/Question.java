@@ -25,10 +25,10 @@ public class Question {
     private String qC;
     private String qD;
 
-    private String qRight;  // answer
-    private String qLevel;  // easy, medium, hard
+    private String qRight; // answer
+    private String qLevel; // easy, medium, hard
 
-    private int qStatus;   // đang dùng(1) hoặc không dùng(0)
+    private int qStatus; // đang dùng (1) hoặc không dùng (0)
 
     @ManyToOne
     @JoinColumn(name = "qTopicId")
